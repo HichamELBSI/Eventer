@@ -1,0 +1,27 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title dark">{{userEdit.Name}}</h1>
+    <div class="buttons">
+    <button class="button" ng-click="close()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <div class="list list-inset">
+      <label class="item item-input">
+      <input type="text" placeholder="Name" ng-model="userEdit.Name">
+      </label>
+      <label class="item item-input">
+      <input type="text" placeholder="Budget" ng-model="userEdit.budget">
+      </label>
+      <img src="{{userEdit.url}}" width="100%"/>
+      <a class="photo-link" hreg="#" ng-click="ip()">
+        <div class="edit-photo">
+        <i class="icon ion-camera"></i>&nbsp;&nbsp;Change picture
+        </div>    
+      </a>
+    </div>
+    <button class="button button-block button-positive" ng-click="EditUser(userEdit)">
+      Edit voyage
+    </button>
+  </ion-content>
+</ion-modal-view>
