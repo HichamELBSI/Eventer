@@ -1,34 +1,22 @@
 angular.module('starter.controllers', [])
 
-.controller('VoyagesCtrl', function($scope, $ionicPopup, $state, Voyage, $ionicModal, $ionicPlatform, $cordovaImagePicker) {
-    
-    $ionicModal.fromTemplateUrl('templates/voyage-form.html', {
-      scope: $scope,
-      animation: 'slide-in-up'}).then(function(modal) {$scope.modalVoyage = modal;});
+.controller('VoyagesCtrl', function(DB_CONFIG, $ionicLoading, $location, $ionicHistory, model, $scope, $cordovaSQLite, $ionicPopup, $cordovaToast, $state, Voyage, $ionicModal, $ionicPlatform, $cordovaImagePicker) {
     
     $scope.$on('$ionicView.beforeEnter', function(){
       Voyage.allVoyages().then(function(datas) {
-    			$scope.Voyages = datas;
-    	});});
-    
-    if($scope.Voyages == undefined) {
-       Voyage.allVoyages().then(function(data) {
-    			console.log(data);
-          $scope.Voyages = data;
-    	});
-    }
-    $scope.myArray = ['#e74c3c','#40d47e','#d35400','#34495e','#1abc9c','#f1c40f','#95a5a6','#9b59b6','#27ae60','#16a085'];
-       
+          $scope.Voyages = datas;
+          $ionicLoading.hide();
+      });
+    });
+
+    $ionicModal.fromTemplateUrl('templates/voyage-form.html', {
+      scope: $scope,
+      animation: 'slide-in-up'}).then(function(modal) {$scope.modalVoyage = modal;});
+        
     $ionicPlatform.onHardwareBackButton(function() {
-          ionic.Platform.exitApp(); // stops the app
-      });
-    
-    $scope.algo = function(id) {
-      Voyage.Algo(id).then(function(res) {
-        console.log(res);
-      });
-    };
-    
+      ionic.Platform.exitApp();
+    });
+
     $scope.Voyageurl = "img/eventer.png";
     
     $scope.openModal = function() {
@@ -115,15 +103,14 @@ angular.module('starter.controllers', [])
               $state.go($state.current, {}, {reload: true});
             });
            } else {
-             console.log('You are not sure');
            }
          });
     }
 })
 .controller('VoyagesDetailCtrl', function($ionicPopup, Article, $scope, $cordovaImagePicker, $cordovaCamera, $state, $stateParams, Voyage, $ionicModal, Participant, $ionicPlatform) {
+  
   $scope.$on('$ionicView.beforeEnter', function(){
       Voyage.getById($stateParams.voyagesId).then(function(data) {
-        console.log(data);
     		  $scope.Voyage = data;
     		});
     	Participant.getAllParticipant($stateParams.voyagesId).then(function(datas){
@@ -134,6 +121,26 @@ angular.module('starter.controllers', [])
     	});
     });
 		
+    $ionicModal.fromTemplateUrl('templates/algo.html', {
+      scope: $scope,
+      animation: 'slide-in-up'}).then(function(modal) {$scope.modalAlgo = modal;});
+    
+    $scope.algo = function(id) {
+      $scope.modalAlgo.show();
+      Voyage.Algo(id).then(function(res) {
+        console.log(res);
+        $scope.algo = res;
+      });
+    };
+
+    $scope.openAlgo = function() {
+      
+    }
+
+    $scope.closeAlgo = function() {
+      $scope.modalAlgo.hide();
+    }
+
 		$scope.newArticle = function() {
       $scope.modalArt.show();
     }
@@ -142,12 +149,12 @@ angular.module('starter.controllers', [])
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
-      console.log(modal);
       $scope.modalArt = modal;
     });
     
   $scope.participantsURL = "img/eventer.png";
   $scope.vID = $stateParams.voyagesId;
+  
   $ionicModal.fromTemplateUrl('templates/participants-form.html', {
     scope: $scope,
     animation: 'slide-in-up',
@@ -182,7 +189,6 @@ angular.module('starter.controllers', [])
   	};
   	
   	Article.addArticleToUser(article).then(function(data) {
-  	  console.log(data);
   	  $state.go($state.current, {}, {reload: true});
   	});
   	
@@ -221,7 +227,7 @@ angular.module('starter.controllers', [])
 		};
 		
 		Participant.insertParticipant(insertuser).then(function(data) {
-		  console.log(data);
+
 		});
 		
 		Participant.getAllParticipant($scope.vID).then(function(datas) {
@@ -244,7 +250,7 @@ angular.module('starter.controllers', [])
           			$state.go($state.current, {}, {reload: true});
           		});
            } else {
-             console.log('You are not sure');
+
            }
          });
   }
@@ -281,7 +287,6 @@ angular.module('starter.controllers', [])
   $scope.edit = function(id) {
     Participant.getParticipant(idp).then(function(data) {
       $scope.userEdit = data[0];
-      console.log($scope.userEdit);
     });
     $scope.modal.show();
   };
@@ -338,7 +343,6 @@ angular.module('starter.controllers', [])
   
       $cordovaImagePicker.getPictures(options).then(function (results) {
           for (var i = 0; i < results.length; i++) {
-            console.log('Image URI: ' + results[i]);
             $scope.userUrl = results[i];
           }
         }, function(error) {
@@ -362,7 +366,6 @@ angular.module('starter.controllers', [])
                 $scope.articles = data;
               });
            } else {
-             console.log('You are not sure');
            }
          });
   }

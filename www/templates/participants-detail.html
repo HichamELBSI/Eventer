@@ -5,8 +5,8 @@
     <ion-refresher pulling-icon="ion-ios-arrow-down" spinner="android" on-refresh="refresh()">
     </ion-refresher>
     <div style="margin-top: 10px;">
-      <img src="{{user.url}}" style="border-radius:50%;-webkit-border-radius:50%;margin: 0px 5px 5px 5px;float:left;width:30%;">
-
+      <div style="background:url('{{user.url}}');background-size: 130px 130px;height: 130px;border-radius:50%;-webkit-border-radius:50%;margin: 0px 5px 5px 5px;float:left;width:130px;">
+      </div>
       <div class="list card" style="box-shadow: none;">
         <div class="item item-divider" style="background-color:#FFF;">
             <h2>Budget <b>{{user.budget}}</b> €</h2>

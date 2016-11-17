@@ -1,10 +1,9 @@
 angular.module('starter.services', [])
 
-.factory('model', function($q, DB_CONFIG) {
+.factory('model', function($q, DB_CONFIG, $ionicPlatform) {
 	var self = this;
-	
 	self.db = null;
- 
+
 	self.init = function() {
 		self.db = window.openDatabase(DB_CONFIG.name, '1.0', 'database', -1);
 		angular.forEach(DB_CONFIG.tables, function(table) {
@@ -20,13 +19,15 @@ angular.module('starter.services', [])
 	self.query = function(query, bindings) {
 		bindings = typeof bindings !== 'undefined' ? bindings : [];
 		var deferred = $q.defer(); 
-		self.db.transaction(function(transaction) {
-			transaction.executeSql(query, bindings, function(transaction, result) {
-				deferred.resolve(result);
-			}, function(transaction, error) {
-				deferred.reject(error);
-			});
-		}); 
+		$ionicPlatform.ready(function () {
+			self.db.transaction(function(transaction) {
+				transaction.executeSql(query, bindings, function(transaction, result) {
+					deferred.resolve(result);
+				}, function(transaction, error) {
+					deferred.reject(error);
+				});
+			}); 
+		});
 		return deferred.promise;		
 	};
  
@@ -455,6 +456,17 @@ angular.module('starter.services', [])
 
 
 
+
+
+			/*self.db.transaction(function(tx) {
+				tx.executeSql("DROP TABLE "+table.name,[], 
+				    function(tx,results){
+				    	console.log(table.name + " Successfully Dropped");
+				    },
+				    function(tx,error){
+				    	console.log(table.name + "Could not delete");
+			    });
+			});*/
 
 
 

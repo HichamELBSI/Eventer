@@ -8,6 +8,14 @@
       </a>
     </span>
   </div>
+
+  <div ng-if="participants.length > 0" class="float-button algo" style="left:50%;" ng-click="algo(Voyage.id)">
+    <span class="height-fix">
+      <a class="content">
+        <i class="ion-social-usd"> </i>
+      </a>
+    </span>
+  </div>
   
   <div ng-if="participants.length > 0"  class="float-button user" style="background: #27ae60;" ng-click="openModal()">
     <span class="height-fix">
@@ -20,13 +28,7 @@
   <ion-content>
     <ion-refresher pulling-icon="ion-ios-arrow-down" spinner="android" on-refresh="refresh()">
     </ion-refresher>
-    <!--<div class="voyage-details">
-      <p class="voyage-name">{{Voyage.Name}}</p>
-      <p class="voyage-budget">{{Voyage.estimation}}</p>
-      <p class="voyage-description">{{Voyage.description}}</p>
-    </div> -->
-    <section>
-      <img src="{{Voyage.url}}" style="width:100%;margin-bottom: -110px;">
+    <section style="height: 50%;background: url('{{Voyage.url}}') center center no-repeat no-repeat;margin-bottom:-60px;">
     </section>
     
     <section class="padding">
@@ -34,7 +36,7 @@
         <div class="item item-divider" style="background-color: rgba(108,122,137,1);">
           <h2 style="color:white;">Contributors</h2>
         </div>
-          <a ng-if="participants.length == 0"  href="" ng-click="openModal()" class="item">
+          <a ng-if="participants.length == 0"   href="" ng-click="openModal()" class="item">
               <p class="add-contributor"><b>Add a new contributor</b></p>
           </a>
           <a href="#/tab/participants/{{Voyage.id}}/{{p.id}}" on-hold="remove(p.id)" class="item item-avatar" ng-repeat="p in participants">

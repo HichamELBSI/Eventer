@@ -189,7 +189,37 @@ a {
   box-shadow: 0px 0px 50px -15px #656565;
   background:rgba(255,255,255,0.3);
 }
+.content-type-icon-left {
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  text-transform: uppercase;
+  bottom: 5px;
+  right: 10px;
+  font-weight: bold;
+  color: white;
+  -moz-box-shadow: 0px 0px 50px -15px #656565;
+  -webkit-box-shadow: 0px 0px 50px -15px #656565;
+  -o-box-shadow: 0px 0px 50px -15px #656565;
+  box-shadow: 0px 0px 50px -15px #656565;
+  background:rgba(255,255,255,0.3);
+}
 .content-type:hover .content-type-icon {
   color: rgba(0,0,0,0.5);
   background:rgba(255,255,255,0.6);
+}
+.scroll{
+  height:100% !important
+}
+.algo {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -55px;
+    width: 100px;
+    height: 100px;
 }

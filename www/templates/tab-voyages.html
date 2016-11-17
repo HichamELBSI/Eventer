@@ -21,8 +21,12 @@
     
     <div style="margin-bottom:100px;">
       <div on-hold="remove(voyage.id)" style="margin-bottom:2px;" ng-repeat="voyage in Voyages">
+        <span class="content-type-icon-left" ng-click="openAlgo()">
+              $
+        </span>
         <a href="#/tab/voyages/{{voyage.id}}">
           <div class="content-type" style="background: url('{{voyage.url}}') center center no-repeat no-repeat;">
+            
             <span class="content-type-icon">
               {{voyage.Name | limitTo:1}}
             </span>
